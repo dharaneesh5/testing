@@ -29,7 +29,11 @@
     - name: Pull Docker image
       shell: docker pull dharaneesh5/my-app-2
 
-    - name: Run container
+    - name: Stop and remove existing container if running
+      shell: docker rm -f web_app || true
+
+    - name: Run Docker container
       shell: docker run -d --name web_app -p 80:80 dharaneesh5/my-app-2
-      args:
-        creates: /var/lib/docker/containers
+
+    - name: Show running containers (for debug)
+      shell: docker ps
